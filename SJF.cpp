@@ -38,18 +38,17 @@ int main()
             }
         }
     }
-    queue_index=0;
+    queue_index=0;processed_time+=bt[queue_index];
     //sort by burst time;
     for(i=0;i<n;i++)
     {
-        processed_time+=bt[queue_index];
-        cout<<"processed_time :"<<processed_time<<endl;
+        
+        
         queue_index++;
         queue_index_min=queue_index;
         while(arr[queue_index]<=processed_time and queue_index<n)
         {
             queue_index++;
-            cout<<queue_index<<endl;
         }
         cout<<"queue_index "<<queue_index<<endl;
         for(k=queue_index_min;k<queue_index;k++)
@@ -65,6 +64,10 @@ int main()
 
             }
             
+        }
+        for(j=queue_index_min;j<=queue_index;j++)
+        {
+            processed_time+=bt[i];
         }
         
     i+=queue_index;
