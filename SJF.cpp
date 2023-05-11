@@ -5,7 +5,7 @@
 using namespace std;
 int farr(int arr[],int n);
 int minArrval(int arr[],int n);
-int maxPriorityindex(int pt[],int n,int processed_time,int arr[]);
+int minBurstIndex(int bt[],int n,int processed_time,int arr[]);
 void printString(string s)
 {
     cout<<s;
@@ -15,29 +15,32 @@ int main()
    int n,i,j;
    printString("Enter the number of Processes:\n");
    cin>>n;
-   int arr[n],bt[n],pt[n],prc[n],ptcp[n];
+   int arr[n],bt[n],prc[n],btcp[n];
    rep(n){
     printString("enter Arrival Time,Burst Time and Priority(higher the number higher the priority order):\n");
     cout<<"Arrival time: ";cin>>arr[i];
     cout<<"Burst time: ";cin>>bt[i];
-    cout<<"Priority: ";cin>>pt[i];ptcp[i]=pt[i];
+    btcp[i]=bt[i];
     prc[i]=i+1;
     }
 int process_queue[n],process_queue_index=0,processed_time=0;
-int arr_time_index;
-int  max_priority,max_priority_queue_index=0;
-arr_time_index=farr(arr,n);
+int arr_time_index=farr(arr,n);
+int  min_burst,min_burst_index=0;
+
 
 process_queue[process_queue_index]=arr_time_index;
-processed_time+=bt[process_queue[process_queue_index]];
-pt[process_queue[process_queue_index]]=0;
+processed_time+=btcp[process_queue[process_queue_index]];
+btcp[process_queue[process_queue_index]]=100000000;
+cout<<"arrtimeindes: "<<arr_time_index<<endl;
+cout<<"bt0 "<<bt[process_queue[process_queue_index]]<<endl;
+cout<<"process_queue[process_queue_index] "<<bt[process_queue[process_queue_index]]<<endl;
 
 for(process_queue_index=1;process_queue_index<n;process_queue_index++)
 {
-    max_priority_queue_index=maxPriorityindex(pt,n,processed_time,arr);
-    process_queue[process_queue_index]=max_priority_queue_index;
+    min_burst_index=minBurstIndex(btcp,n,processed_time,arr);
+    process_queue[process_queue_index]=min_burst_index;
     processed_time+=bt[process_queue[process_queue_index]];
-    pt[max_priority_queue_index]=0;
+    btcp[min_burst_index]=100000000;
     
 }
 
@@ -57,11 +60,11 @@ double avg_tr,avg_wt;
 
     avg_tr=(double)avg_tr/(double)n;
     avg_wt=(double)avg_wt/(double)n;
-    printString("Process \t Priority \t Arrival_Time \t Burst_Time \t Completion_Time \t Turnaround_Time \t Waiting_Time:\n");
+    printString("Process \t Arrival_Time \t Burst_Time \t Completion_Time \t Turnaround_Time \t Waiting_Time:\n");
     for(j=0;j<n ;j++)
     {
         i=process_queue[j];
-        cout<<"  P"<<prc[i]<<" \t \t "<<ptcp[i]<<" \t \t "<<arr[i]<<" \t \t "<<bt[i]<<" \t \t "<<com[i]<<" \t \t\t "<<tr[i]<<" \t \t\t "<<wt[i]<<endl;
+        cout<<"  P"<<prc[i]<<" \t \t "<<arr[i]<<" \t \t "<<bt[i]<<" \t \t "<<com[i]<<" \t \t\t "<<tr[i]<<" \t \t\t "<<wt[i]<<endl;
     }
     cout<<"Average Turnaround time : "<<setprecision(2)<<avg_tr<<endl;
     cout<<"Average waiting time : "<<setprecision(2)<<avg_wt<<endl;
@@ -86,19 +89,23 @@ int farr(int arr[],int n)
     }
     return arr_time_index;
 }
-
-int maxPriorityindex(int pt[],int n,int processed_time,int arr[])
+int minArrval(int arr[],int n){
+    sort(arr,arr+n);
+    return arr[0];
+    
+}
+int minBurstIndex(int bt[],int n,int processed_time,int arr[])
 {
-    int i,max=0,j=0;
+    int i,min=100000000,j=0;
     for(i=0;i<n;i++)
     {
         if(arr[i]>processed_time)break;
         else 
         {
-            if(pt[i]>max)
+            if(bt[i]<min)
             {
                 j=i;
-                max=pt[i];
+                min=bt[i];
             }
         }
     }
