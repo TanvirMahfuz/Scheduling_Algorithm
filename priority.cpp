@@ -4,7 +4,6 @@
 #define lf cout<<endl
 using namespace std;
 int farr(int arr[],int n);
-int minArrval(int arr[],int n);
 int maxPriorityindex(int pt[],int n,int processed_time,int arr[]);
 void printString(string s)
 {
@@ -41,8 +40,8 @@ for(process_queue_index=1;process_queue_index<n;process_queue_index++)
     
 }
 
-int total_burst_time=0,com[20],tr[n],wt[n];
-double avg_tr,avg_wt;
+int total_burst_time=0,com[n],tr[n],wt[n];
+double avg_tr=0,avg_wt=0;
 
     for(j=0;j<n;j++)
     {
