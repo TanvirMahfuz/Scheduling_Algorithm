@@ -4,7 +4,6 @@
 #define lf cout<<endl
 using namespace std;
 int farr(int arr[],int n);
-int minArrval(int arr[],int n);
 int minBurstIndex(int bt[],int n,int processed_time,int arr[]);
 void printString(string s)
 {
@@ -17,7 +16,7 @@ int main()
    cin>>n;
    int arr[n],bt[n],prc[n],btcp[n];
    rep(n){
-    printString("enter Arrival Time,Burst Time and Priority(higher the number higher the priority order):\n");
+    printString("enter Arrival Time and Burst Time :\n");
     cout<<"Arrival time: ";cin>>arr[i];
     cout<<"Burst time: ";cin>>bt[i];
     btcp[i]=bt[i];
@@ -31,9 +30,6 @@ int  min_burst,min_burst_index=0;
 process_queue[process_queue_index]=arr_time_index;
 processed_time+=btcp[process_queue[process_queue_index]];
 btcp[process_queue[process_queue_index]]=100000000;
-cout<<"arrtimeindes: "<<arr_time_index<<endl;
-cout<<"bt0 "<<bt[process_queue[process_queue_index]]<<endl;
-cout<<"process_queue[process_queue_index] "<<bt[process_queue[process_queue_index]]<<endl;
 
 for(process_queue_index=1;process_queue_index<n;process_queue_index++)
 {
@@ -89,11 +85,7 @@ int farr(int arr[],int n)
     }
     return arr_time_index;
 }
-int minArrval(int arr[],int n){
-    sort(arr,arr+n);
-    return arr[0];
-    
-}
+
 int minBurstIndex(int bt[],int n,int processed_time,int arr[])
 {
     int i,min=100000000,j=0;
