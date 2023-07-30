@@ -40,7 +40,7 @@ for(process_queue_index=1;process_queue_index<n;process_queue_index++)
     
 }
 
-int total_burst_time=0,com[n],tr[n],wt[n];
+int total_burst_time=arr[0],com[n],tr[n],wt[n];
 double avg_tr=0,avg_wt=0;
 
     for(j=0;j<n;j++)
